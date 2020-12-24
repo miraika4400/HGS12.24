@@ -34,7 +34,9 @@ public:
 	{
 		OBJTYPE_NONE = 0,
 		OBJTYPE_BG,         // 背景
+		OBJTYPE_ENEMY,		// エネミー
 		OBJTYPE_PLAYER,     // プレイヤー
+		OBJTYPE_BULLET,		// バレット
 		OBJTYPE_PARTICLE,   // パーティクル
 		OBJTYPE_MOTION,     // モーション
 		OBJTYPE_UI,         // UI
@@ -55,7 +57,10 @@ public:
 	OBJTYPE GetType(void) { return m_type; }  // オブジェクトタイプの取得
 	int GetID(void) { return m_nNumID; }      // 配列番号の取得
 
-											  // 純粋仮想関数
+	CScene *GetNext(void);
+	static CScene *GetTop(int nNum);
+
+	// 純粋仮想関数
 	virtual HRESULT Init(void) = 0; // 初期化
 	virtual void Uninit(void) = 0;  // 終了
 	virtual void Update(void) = 0;  // 更新

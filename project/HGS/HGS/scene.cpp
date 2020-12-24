@@ -259,3 +259,16 @@ void CScene::ReConnection(void)
 		}
 	}
 }
+
+CScene * CScene::GetNext(void)
+{
+	return m_pNext;
+}
+
+//=============================================================================
+//æ“ªî•ñ‚Ìæ“¾ˆ—
+//=============================================================================
+CScene * CScene::GetTop(int nNum)
+{
+	return m_pTop[nNum];
+}

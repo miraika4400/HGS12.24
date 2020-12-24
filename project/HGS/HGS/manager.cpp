@@ -26,6 +26,9 @@
 #include "tutorial.h"
 #include "pause.h"
 #include "debug_log.h"
+#include "player.h"
+#include "bullet.h"
+#include "enemy.h"
 
 //=============================
 // 静的メンバ変数宣言
@@ -43,6 +46,7 @@ CFade           *CManager::m_pFade = NULL;           // フェード
 CTutorial       *CManager::m_pTutorial = NULL;       // チュートリアル
 CPause          *CManager::m_pPause = NULL;            // ポーズポインタ
 bool             CManager::m_bPause = false;         // ポーズフラグ
+
 //=============================
 // コンストラクタ
 //=============================
@@ -118,6 +122,9 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	CNumber::Load();	// ナンバー
 	CParticle::Load();
 	CPause::Load();
+	CPlayer::Load();
+	CBullet::Load();
+	CEnemy::Load();
 
 	// ポーズ状態の時
 	return S_OK;
@@ -136,6 +143,9 @@ void CManager::Uninit(void)
 	CNumber::Unload();
 	CParticle::Unload();
 	CPause::Unload();
+	CPlayer::UnLoad();
+	CBullet::UnLoad();
+	CEnemy::UnLoad();
 
 	if (m_pSound != NULL)
 	{

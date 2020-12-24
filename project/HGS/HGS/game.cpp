@@ -20,6 +20,8 @@
 #include "time.h"
 #include "player.h"
 #include "enemy.h"
+#include "grid.h"
+#include "break_effect.h"
 
 //=============================
 // マクロ定義
@@ -86,6 +88,8 @@ HRESULT CGame::Init(void)
 
 	// ポーズの初期化
 	CManager::SetActivePause(false);
+
+	CGrid::CreateAll();
 	return S_OK;
 }
 
@@ -116,6 +120,13 @@ void CGame::Update(void)
 
 	// ゲームの設定
 	SetGame();
+
+	if (CManager::GetMouse()->GetMouseTrigger(0))
+	{
+		CGrid::Break(CManager::GetMouse()->GetMousePos());
+		CBreakEffect::Create(CManager::GetMouse()->GetMousePos());
+	}
+	CGrid::Shake();
 }
 
 //=============================

@@ -13,14 +13,14 @@
 // インクルード
 //*****************************
 #include "main.h"
-#include "scene3d.h"
+#include "scene2d.h"
 
 //*****************************
 // クラス定義
 //*****************************
 
 // パーティクルクラス
-class CParticle : public CScene3d
+class CParticle : public CScene2d
 {
 public:
 	//============

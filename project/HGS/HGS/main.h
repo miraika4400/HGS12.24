@@ -47,6 +47,7 @@
 #define SCREEN_HEIGHT 720  // 画面サイズ 縦
 #define NUM_POLYGON 2      // 一描画のポリゴン数
 #define NUM_VERTEX 4       // 一描画の頂点数
+#define CENTER_POS D3DXVECTOR3( SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 0.0f)
 
 //*****************************************************************************
 // 構造体定義

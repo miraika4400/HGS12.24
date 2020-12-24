@@ -105,7 +105,7 @@ void CParticle::Unload(void)
 //******************************
 HRESULT CParticle::Init(void)
 {
-	if (FAILED(CScene3d::Init()))
+	if (FAILED(CScene2d::Init()))
 	{
 		return E_FAIL;
 	}
@@ -122,7 +122,7 @@ HRESULT CParticle::Init(void)
 void CParticle::Uninit(void)
 {
 
-	CScene3d::Uninit();
+	CScene2d::Uninit();
 }
 
 //******************************
@@ -132,6 +132,10 @@ void CParticle::Update(void)
 {
 	// 移動
 	SetPos(GetPos() + m_move);
+	//D3DXCOLOR col = GetColor();
+	//
+	//col.a -= 0.2f;
+	//SetColor(col);
 
 	// 寿命
 	m_nLife--;
@@ -146,8 +150,5 @@ void CParticle::Update(void)
 //******************************
 void CParticle::Draw(void)
 {
-	// デバイスの取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
-
-	CScene3d::Draw();
+	CScene2d::Draw();
 }

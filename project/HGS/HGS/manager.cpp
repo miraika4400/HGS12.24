@@ -29,6 +29,7 @@
 #include "player.h"
 #include "bullet.h"
 #include "enemy.h"
+#include "grid.h"
 
 //=============================
 // 静的メンバ変数宣言
@@ -120,8 +121,9 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	// テクスチャの読み込み
 	CBg::Load();        // 背景
 	CNumber::Load();	// ナンバー
-	CParticle::Load();
-	CPause::Load();
+	CParticle::Load();  // パーティクル
+	CPause::Load();     // ポーズ
+	CGrid::Load();      // グリッド
 	CPlayer::Load();
 	CBullet::Load();
 	CEnemy::Load();
@@ -146,6 +148,7 @@ void CManager::Uninit(void)
 	CPlayer::UnLoad();
 	CBullet::UnLoad();
 	CEnemy::UnLoad();
+	CGrid::Unload();
 
 	if (m_pSound != NULL)
 	{

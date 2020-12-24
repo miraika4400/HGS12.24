@@ -149,11 +149,13 @@
   <ItemGroup>
     <ClCompile Include="bg.cpp" />
     <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="break_effect.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="debug_log.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="grid.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="joypad.cpp" />
     <ClCompile Include="keyboard.cpp" />
@@ -181,11 +183,13 @@
   <ItemGroup>
     <ClInclude Include="bg.h" />
     <ClInclude Include="bullet.h" />
+    <ClInclude Include="break_effect.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="debug_log.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="grid.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="joypad.h" />
     <ClInclude Include="keyboard.h" />

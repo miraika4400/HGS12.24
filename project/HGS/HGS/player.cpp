@@ -78,11 +78,14 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	// メモリ確保
 	CPlayer *pPlayer = new CPlayer;
 
-	// 初期化処理
-	pPlayer->Init();
-	pPlayer->SetPos(pos);		// プレイヤーの位置設定
-	pPlayer->SetSize(size);		// サイズの設定
-
+	if (pPlayer != NULL)
+	{	
+		// 初期化処理
+		pPlayer->Init();
+		pPlayer->SetPos(pos);		// プレイヤーの位置設定
+		pPlayer->SetSize(size);		// サイズの設定
+		pPlayer->BindTexture(m_pTexture);	// テクスチャ設定
+	}
 	return pPlayer;
 }
 

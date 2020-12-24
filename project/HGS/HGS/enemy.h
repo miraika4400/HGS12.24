@@ -45,10 +45,14 @@ public:
 	void HitDamage(int nCount);										// エネミーのヒット時
 	static CEnemy * Create(D3DXVECTOR3 pos, D3DXVECTOR3 size);		// エネミー生成
 	bool Collision(void);											// 当たり判定
+	void Rotation(void);											// ポリゴンの回転
 private:
 	static LPDIRECT3DTEXTURE9 m_apTexture[MAX_ENEMY_TEXTURE];		// テクスチャ情報のポインタ
 	int m_nLife;							// 体力
 	int m_nSpeed;							// 速さ
+	float m_fRasian;
+	float m_fDiagonal;
+	float m_fAngle;
 };
 
 #endif

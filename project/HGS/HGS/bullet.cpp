@@ -62,7 +62,7 @@ CBullet * CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move,
 	pBullet->SetSize(size);		// ˆÚ“®
 	pBullet->m_move = move;		// ˆÚ“®—Ê
 	pBullet->m_nLife = nLife;	// ‘Ì—Í
-
+	pBullet->BindTexture(m_apTexture[0]);
 	return pBullet;
 }
 

@@ -40,6 +40,10 @@ CEnemy::CEnemy():CScene2d(OBJTYPE_ENEMY)
 {
 	m_nLife = 0;
 	m_nSpeed = 0;
+	m_fRasian = 0.0f;
+	m_fDiagonal = 0.0f;
+	m_fAngle = 0.0f;
+
 }
 
 //=============================================================================
@@ -60,10 +64,11 @@ CEnemy * CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 	if (pEnemy != NULL)
 	{
 		// 初期化処理
-		pEnemy->Init();					// 初期化情報
+		pEnemy->Init();							// 初期化情報
 		pEnemy->SetPos(pos);
-		pEnemy->SetSize(size);			// サイズ設定
-		pEnemy->m_nLife = ENEMY_LIFE;	// 体力
+		pEnemy->SetSize(size);					// サイズ設定
+		pEnemy->m_nLife = ENEMY_LIFE;			// 体力
+		pEnemy->BindTexture(m_apTexture[0]);	// テクスチャ設定
 	}
 
 	return pEnemy;
@@ -80,7 +85,7 @@ HRESULT CEnemy::Load(void)
 	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
 
 	// テクスチャの読み込み
-	D3DXCreateTextureFromFile(pDevice, "date/TEXTURE/enemy_q (1).png",
+	D3DXCreateTextureFromFile(pDevice, "data/Textures/enemy.png",
 		&m_apTexture[0]);
 
 	return S_OK;
@@ -165,6 +170,9 @@ void CEnemy::Update(void)
 	// 座標を渡す
 	SetPos(pos);
 
+	// 回転
+	Rotation();
+
 	// プレイヤーとの当たり判定
 	Collision();
 
@@ -236,4 +244,26 @@ bool CEnemy::Collision(void)
 	}
 
 	return false;
+}
+
+void CEnemy::Rotation(void)
+{
+	// 座標更新
+	D3DXVECTOR3 pos = GetPos();
+
+	// プレイヤー情報を取得
+	CPlayer *pPlayer = CGame::GetPlayer();
+	D3DXVECTOR3 Ppos = pPlayer->GetPos();
+
+	//自機を取得する
+	float fPposx = Ppos.x, fPposy = Ppos.y;		// 自機の座標
+	float fEposx = pos.x, fEposy = pos.y;	// 敵の座標
+	float fAngle;								// 角度
+
+	//角度を決める
+	fAngle = atan2f((fEposx - fPposx), (fEposy - fPposy));
+
+	// アングルの設定
+	SetAngle(D3DXToDegree(-fAngle));
+	SetPos(pos);
 }

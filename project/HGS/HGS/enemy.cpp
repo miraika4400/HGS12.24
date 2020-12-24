@@ -16,7 +16,8 @@
 #include "score.h"
 #include "game.h"
 #include "sound.h"
-
+#include "grid.h"
+#include "break_effect.h"
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -181,6 +182,8 @@ void CEnemy::Update(void)
 	{
 		// エネミー削除
 		Uninit();
+		CGrid::Break(GetPos());
+		CBreakEffect::Create(GetPos());
 	}
 }
 

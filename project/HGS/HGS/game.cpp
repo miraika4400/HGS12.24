@@ -18,6 +18,8 @@
 #include "keyboard.h"
 #include "particle.h"
 #include "time.h"
+#include "grid.h"
+#include "break_effect.h"
 
 //=============================
 // 静的メンバ変数宣言
@@ -59,6 +61,8 @@ HRESULT CGame::Init(void)
 
 	// ポーズの初期化
 	CManager::SetActivePause(false);
+
+	CGrid::CreateAll();
 	return S_OK;
 }
 
@@ -67,7 +71,6 @@ HRESULT CGame::Init(void)
 //=============================
 void CGame::Uninit(void)
 {
-
 	// 開放処理
 	Release();
 }
@@ -82,6 +85,13 @@ void CGame::Update(void)
 	{
 		CManager::GetFade()->SetFade(CManager::MODE_RESULT);
 	}
+
+	if (CManager::GetMouse()->GetMouseTrigger(0))
+	{
+		CGrid::Break(CManager::GetMouse()->GetMousePos());
+		CBreakEffect::Create(CManager::GetMouse()->GetMousePos());
+	}
+	CGrid::Shake();
 }
 
 

@@ -35,8 +35,9 @@ public:
 		OBJTYPE_NONE = 0,
 		OBJTYPE_BG,         // 背景
 		OBJTYPE_PLAYER,     // プレイヤー
-		OBJTYPE_PARTICLE,   // パーティクル
 		OBJTYPE_MOTION,     // モーション
+		OBJTYPE_MAP,        // ステージ
+		OBJTYPE_PARTICLE,   // パーティクル
 		OBJTYPE_UI,         // UI
 		OBJTYPE_MAX,        // タイプの最大数
 	}OBJTYPE;

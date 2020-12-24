@@ -21,9 +21,9 @@
 //*****************************
 // マクロ定義
 //*****************************
-#define MAX_SIZE 1000.0f  // 最大サイズ
-#define RATE_SIZE 0.1f  // サイス係数
-#define RATE_ALFA 0.1f  // サイス係数
+#define MAX_SIZE 1500.0f  // 最大サイズ
+#define RATE_SIZE 0.08f   // サイズ係数
+#define RATE_ALFA 0.1f    // アルファ値係数
 
 //******************************
 // 静的メンバ変数宣言
@@ -95,7 +95,7 @@ void CBreakEffect::Uninit(void)
 void CBreakEffect::Update(void)
 {
 
-	int nRnd = rand() % 10 + 5;
+	int nRnd = rand() % 10 + 10;
 	for (int nCntparticle = 0; nCntparticle < nRnd; nCntparticle++)
 	{
 		// ランダムな距離
@@ -111,15 +111,16 @@ void CBreakEffect::Update(void)
 
 
 		// ランダムなサイズ
-		int nRandSize = rand() % 5 + 10;
+		int nRandSize = rand() % 5 + 20;
 		// パーティクルの生成
 		CParticle::Create(randPos,
 			D3DXVECTOR3((float)(rand() % 3 - 1),
 			(float)(rand() % 3 - 1), 0.0f),
 			D3DXVECTOR3((float)nRandSize, (float)nRandSize, 0.0f),
 			rand() % 5 + 5,
-			D3DXCOLOR((float)(rand() % 100) / 100.0f, 0.4f,1.0f,  m_fAlfa))->SetAddMode(false);
+			D3DXCOLOR(1.0f,(float)(rand() % 100) / 100.0f, 0.5f,  m_fAlfa))->SetAddMode(false);
 	}
+
 	m_fAlfa += ((0.0f) - m_fAlfa)*RATE_ALFA;
 
 	m_size.x += ((m_fMaxsize + 3.0f) - m_size.x)*RATE_SIZE;

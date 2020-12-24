@@ -38,8 +38,8 @@ public:
 		OBJTYPE_PLAYER,     // プレイヤー
 		OBJTYPE_BULLET,		// バレット
 		OBJTYPE_MOTION,     // モーション
-		OBJTYPE_MAP,        // ステージ
 		OBJTYPE_PARTICLE,   // パーティクル
+		OBJTYPE_MAP,        // ステージ
 		OBJTYPE_UI,         // UI
 		OBJTYPE_MAX,        // タイプの最大数
 	}OBJTYPE;

@@ -12,11 +12,11 @@
 //=============================
 // インクルード
 //=============================
-#include "scene.h"
+#include "scene2d.h"
 //=============================
 // 前方宣言
 //=============================
-class CScene2d;
+//class CScene2d;
 
 //=============================
 // マクロ定義
@@ -30,7 +30,7 @@ class CScene2d;
 //=============================
 
 //グリッドクラス
-class CGrid : public CScene
+class CGrid : public CScene2d
 {
 public:
 	//======================
@@ -63,6 +63,7 @@ public:
 	//static CList<CGrid>*GetList(int nIndex) { return &m_list[nIndex]; }
 
 private:
+	void Animation(void);
 	//======================
 	// メンバ変数
 	//======================
@@ -72,8 +73,11 @@ private:
 	static D3DXVECTOR3 m_shakeDist;                 // ブレ
 	static bool m_bShake;                           // ブレフラグ
 	static int m_nCntShake;
-	CScene2d*m_pScene2d;   // ポリゴン
+	//CScene2d*m_pScene2d;   // ポリゴン
 	D3DXVECTOR2 m_gridNum; // グリッド番号
+	int      m_nCntAnim;       // アニメーションカウント
+	int      m_nAnimX;         // アニメーションX軸
+	int      m_nAnimY;         // アニメーションY軸
 };
 
 

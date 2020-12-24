@@ -132,10 +132,10 @@ void CParticle::Update(void)
 {
 	// ˆÚ“®
 	SetPos(GetPos() + m_move);
-	//D3DXCOLOR col = GetColor();
-	//
-	//col.a -= 0.2f;
-	//SetColor(col);
+	D3DXCOLOR col = GetColor();
+	
+	col.a -= 0.02f;
+	SetColor(col);
 
 	// Žõ–½
 	m_nLife--;

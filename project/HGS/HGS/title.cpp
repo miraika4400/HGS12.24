@@ -18,6 +18,7 @@
 #include "joypad.h"
 #include "fade.h"
 #include "sound.h"
+#include "start_logo.h"
 
 //**********************************
 // 静的メンバ変数宣言
@@ -27,7 +28,7 @@ LPDIRECT3DTEXTURE9 CTitle::m_pTexture = NULL;
 //**********************************
 // マクロ定義
 //**********************************
-#define  TITLE_TEXTURE_PATH "./data/Textures/title000.png" // テクスチャ
+#define  TITLE_TEXTURE_PATH "data/Textures/title_screen.png" // テクスチャ
 
 //=============================
 // コンストラクタ
@@ -72,6 +73,12 @@ HRESULT CTitle::Init(void)
 		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 
 	m_pPolygon->BindTexture(m_pTexture);
+
+	// タイトルロゴ
+	CStartLogo::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, START_LOGO_POS_Y, 0.0f),
+		D3DXVECTOR3(START_LOGO_SIZE_X, START_LOGO_SIZE_Y, 0.0f));
+
+
 
 	
 	return S_OK;

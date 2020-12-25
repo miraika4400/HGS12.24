@@ -32,6 +32,7 @@
 #include "grid.h"
 #include "diplay_off.h"
 #include "display_on.h"
+#include "start_logo.h"
 
 //=============================
 // 静的メンバ変数宣言
@@ -131,6 +132,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	CEnemy::Load();
 	CDisplayOff::Load();
 	CDisplayON::Load();
+	CStartLogo::Load();
 	// ポーズ状態の時
 	return S_OK;
 }
@@ -154,6 +156,8 @@ void CManager::Uninit(void)
 	CGrid::Unload();
 	CDisplayOff::Unload();
 	CDisplayON::Unload();
+	CStartLogo::UnLoad();
+
 	if (m_pSound != NULL)
 	{
 		// 終了処理
@@ -245,13 +249,13 @@ void CManager::Update(void)
 			if (m_pInputKeyboard->GetKeyTrigger(DIK_TAB) || m_pJoypad->GetJoystickTrigger(11, 0))
 			{// TAB
 
-				if (m_pPause == NULL)
-				{
+				//if (m_pPause == NULL)
+				//{
 					// 生成
-					m_pPause = CPause::Create();
-				}
-				// ポーズの切り替え
-				m_bPause ^= true;
+				//	m_pPause = CPause::Create();
+				//}
+				//// ポーズの切り替え
+				//m_bPause ^= true;
 			}
 			if (!m_bPause)
 			{// ポーズじゃないとき

@@ -51,6 +51,7 @@ public:
 	D3DXCOLOR GetColor(void) { return m_col; }
 	void InitAnimation(int nCounterAnim, int nPatternAnim, int nLoop);	// アニメーション情報初期化
 	void UpdateAnimation(void);											// アニメーションの更新
+	LPDIRECT3DVERTEXBUFFER9 GetVtxBuff(void) { return m_pVtxBuff; }
 
 
 	void SetTextureUV(const D3DXVECTOR2 uv[NUM_VERTEX]); // テクスチャのUV座標のセット

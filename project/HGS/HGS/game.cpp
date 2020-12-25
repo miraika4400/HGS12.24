@@ -98,7 +98,7 @@ HRESULT CGame::Init(void)
 	m_nEnemyFlame = ENEMY_FIRST_INTER;
 
 	// ƒ|[ƒY‚Ì‰Šú‰»
-	CManager::SetActivePause(false);
+//	CManager::SetActivePause(false);
 
 	CGrid::CreateAll();
 	return S_OK;

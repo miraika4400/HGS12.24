@@ -152,9 +152,11 @@
     <ClCompile Include="break_effect.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="debug_log.cpp" />
+    <ClCompile Include="diplay_on.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="diplay_off.cpp" />
     <ClCompile Include="grid.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="joypad.cpp" />
@@ -186,9 +188,11 @@
     <ClInclude Include="break_effect.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="debug_log.h" />
+    <ClInclude Include="display_on.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="diplay_off.h" />
     <ClInclude Include="grid.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="joypad.h" />

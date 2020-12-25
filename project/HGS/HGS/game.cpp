@@ -123,8 +123,7 @@ void CGame::Update(void)
 
 	if (CManager::GetMouse()->GetMouseTrigger(0))
 	{
-		CGrid::Break(CManager::GetMouse()->GetMousePos());
-		CBreakEffect::Create(CManager::GetMouse()->GetMousePos());
+		CGrid::BreakAll(CManager::GetMouse()->GetMousePos());
 	}
 	CGrid::Shake();
 }

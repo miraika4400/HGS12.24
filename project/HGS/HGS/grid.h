@@ -41,6 +41,7 @@ public:
 		STATE_NORMAL = 0, // 通常
 		STATE_CRACK,      // ヒビ
 		STATE_BREAK,      // 破壊
+		STATE_END,        // 破壊
 		STATE_MAX         // 状態数
 	}STATE;
 
@@ -55,6 +56,7 @@ public:
 	static void Unload(void);
 	static void Break(D3DXVECTOR3 pos);
 	static void Shake(bool bRand = false);
+	static void BreakAll(D3DXVECTOR3 pos);
 
 	HRESULT Init(void);
 	void Uninit(void);
@@ -71,6 +73,8 @@ public:
 
 private:
 	void Animation(void);
+	void SetState(STATE state);
+
 	//======================
 	// メンバ変数
 	//======================
@@ -79,7 +83,11 @@ private:
 	static D3DXVECTOR3 m_shake;                           // ブレ
 	static D3DXVECTOR3 m_shakeDist;                       // ブレ
 	static bool m_bShake;                                 // ブレフラグ
-	static int m_nCntShake;
+	static int m_nCntShake;                               // ブレのカウント
+	static float m_fBreakArea;                            // BreakAllで消す範囲
+	static bool m_bAllBreak;                              // すべて壊す
+	static D3DXVECTOR3 m_breakPos;                        // すべて壊す始点
+
 	CScene2d *m_pScene2d;
 	//CScene2d*m_pScene2d;   // ポリゴン
 	D3DXVECTOR2 m_gridNum; // グリッド番号
@@ -87,6 +95,7 @@ private:
 	int      m_nAnimX;         // アニメーションX軸
 	int      m_nAnimY;         // アニメーションY軸
 	STATE m_state;           // 状態
+	bool m_bAnim;           // アニメーション
 };
 
 

@@ -22,6 +22,7 @@
 #include "enemy.h"
 #include "grid.h"
 #include "break_effect.h"
+#include "ranking.h"
 
 //=============================
 // マクロ定義
@@ -29,9 +30,9 @@
 #define ENEMY_FIRST_INTER		(150)
 #define ENEMY_SECOND_INTER		(100)
 #define ENEMY_THIRD_INTER		(80)
-#define ENEMY_FOURS_INTER		(60)
-#define ENEMY_FIVE_INTER		(45)
-#define ENEMY_SIX_INTER			(30)
+#define ENEMY_FOURS_INTER		(65)
+#define ENEMY_FIVE_INTER		(50)
+#define ENEMY_SIX_INTER			(35)
 #define ENEMY_SEVEN_INTER		(20)
 #define ENEMY_EIGHT_INTER		(15)
 
@@ -40,6 +41,7 @@
 //=============================
 CCamera *CGame::m_pCamera = NULL;   // カメラ
 CPlayer *CGame::m_pPlayer = NULL;	// プレイヤー
+CScore *CGame::m_pScore = NULL;		// スコア
 
 //=============================
 // コンストラクタ
@@ -56,6 +58,7 @@ CGame::CGame()
 //=============================
 CGame::~CGame()
 {
+
 }
 
 //=============================
@@ -76,7 +79,7 @@ CGame * CGame::Create(void)
 //=============================
 HRESULT CGame::Init(void)
 {
-	// プレイヤーの初期化処理
+	// プレイヤーの生成
 	if (m_pPlayer == NULL)
 	{
 		// インスタンス生成
@@ -84,7 +87,15 @@ HRESULT CGame::Init(void)
 			D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, 0.0f));
 	}
 
-	m_nEnemyFlame = ENEMY_FIRST_INTER;			// 敵の出るフレーム
+	// スコアの生成
+	if (m_pScore == NULL)
+	{
+		// インスタンス生成
+		m_pScore = CScore::Create();
+	}
+
+	// 敵の出るフレーム
+	m_nEnemyFlame = ENEMY_FIRST_INTER;
 
 	// ポーズの初期化
 	CManager::SetActivePause(false);
@@ -102,6 +113,14 @@ void CGame::Uninit(void)
 	if (m_pPlayer != NULL)
 	{
 		m_pPlayer = NULL;	// プレイヤー
+	}
+
+	// スコアが使われていたら
+	if (m_pScore != NULL)
+	{
+		CRanking::SetRanking(m_pScore->GetScore());
+
+		m_pScore = NULL;
 	}
 
 	// 開放処理
@@ -172,7 +191,7 @@ void CGame::SetGame(void)
 		D3DXVECTOR3 pos = D3DXVECTOR3(fPosX, fPosY, 0.0f);
 
 		// エネミーの出現
-		CEnemy::Create(pos, D3DXVECTOR3(ENEMY_SIZE_X / 2, ENEMY_SIZE_Y/2, 0.0f));
+		CEnemy::Create(pos, D3DXVECTOR3(ENEMY_SIZE_X , ENEMY_SIZE_Y, 0.0f));
 	}
 
 	// 二段階目
@@ -193,18 +212,16 @@ void CGame::SetGame(void)
 		m_nEnemyFlame = ENEMY_FIVE_INTER;
 		m_bSpeedUp = true;
 	}
-	if (m_nGameFlame == 3900)	// 65秒
+	if (m_nGameFlame == 4200)	// 70秒
 	{
 		m_nEnemyFlame = ENEMY_SIX_INTER;
 	}
-	if (m_nGameFlame == 4800)	// 80秒
+	if (m_nGameFlame == 5400)	// 90秒
 	{
 		m_nEnemyFlame = ENEMY_SEVEN_INTER;
 	}
-	if (m_nGameFlame == 5700)	// 95秒
+	if (m_nGameFlame == 6600)	// 110秒
 	{
-		m_nEnemyFlame = ENEMY_SEVEN_INTER;
+		m_nEnemyFlame = ENEMY_EIGHT_INTER;
 	}
-
-
 }

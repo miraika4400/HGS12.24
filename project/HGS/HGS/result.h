@@ -19,6 +19,7 @@
 // 前方宣言
 //=============================
 class CPolygon;
+class CRanking;
 
 //*****************************
 //クラス定義
@@ -47,6 +48,8 @@ private:
 	//============
 	static LPDIRECT3DTEXTURE9 m_pTexture; // テクスチャへのポインタ
 	CPolygon *m_pPolygon;                 // ポリゴン
+	static CRanking *m_pRanking;					// ランキング
+
 };
 
 #endif

@@ -24,7 +24,11 @@ public:
 	{
 		LABEL_BGM_TITLE = 0, // タイトルBGM
 		LABEL_BGM_GAME,      // ゲームBGM
-		LABEL_BGM_RESULT,    // リザルトBGM
+		LABEL_SE_BREAK_01,   // ディスプレイ破壊(一回目)
+		LABEL_SE_BREAK_02,   // ディスプレイ破壊(二回目)
+		LABEL_SE_DECISION,   // 決定
+		LABEL_SE_GAME_OVER,  // ゲームオーバー
+		LABEL_SE_SHOT,       // 射撃
 		SOUND_LABEL_MAX,     // サウンド最大数
 	}LABEL;
 

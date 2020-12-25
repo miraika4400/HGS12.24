@@ -14,7 +14,11 @@ CSound::SOUNDPARAM CSound::m_aParam[SOUND_LABEL_MAX]
 {
 	{ "./data/Sounds/BGM/title.wav", -1 },
 	{ "./data/Sounds/BGM/gameBGM.wav", -1 },
-	{ "./data/Sounds/BGM/result.wav", -1 },
+	{ "./data/Sounds/SE/BreakSE_01.wav", 0 },
+	{ "./data/Sounds/SE/BreakSE_02.wav", 0 },
+	{ "./data/Sounds/SE/Decision.wav", 0 },
+	{ "./data/Sounds/SE/game_over.wav", 0 },
+	{ "./data/Sounds/SE/shot.wav", 0 },
 };
 
 //=============================================================================

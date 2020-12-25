@@ -12,8 +12,8 @@
 #include "renderer.h"
 #include "manager.h"
 #include "player.h"
-#include "sound.h"
 #include "score.h"
+#include "sound.h"
 #include "game.h"
 #include "enemy.h"
 
@@ -202,6 +202,9 @@ bool CBullet::Collision(void)
 
 				// 敵にダメージ
 				pEnemy->HitDamage(BULLET_DAMAGE);
+
+				// スコアの加算
+				CScore::AddScore(ENEMY_SCORE_NORMAL);
 				return true;
 			}
 		}

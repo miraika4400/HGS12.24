@@ -151,6 +151,7 @@
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="break_effect.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="collision.cpp" />
     <ClCompile Include="debug_log.cpp" />
     <ClCompile Include="diplay_on.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="pause.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="polygon.cpp" />
+    <ClCompile Include="ranking.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="result.cpp" />
     <ClCompile Include="scene.cpp" />
@@ -187,6 +189,7 @@
     <ClInclude Include="bullet.h" />
     <ClInclude Include="break_effect.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="collision.h" />
     <ClInclude Include="debug_log.h" />
     <ClInclude Include="display_on.h" />
     <ClInclude Include="enemy.h" />
@@ -208,6 +211,7 @@
     <ClInclude Include="pause.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="polygon.h" />
+    <ClInclude Include="ranking.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="result.h" />
     <ClInclude Include="scene.h" />

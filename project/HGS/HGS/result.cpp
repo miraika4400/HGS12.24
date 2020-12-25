@@ -19,10 +19,14 @@
 #include "fade.h"
 #include "score.h"
 #include "display_on.h"
+#include "ranking.h"
+
+
 //**********************************
 // 静的メンバ変数宣言
 //**********************************
 LPDIRECT3DTEXTURE9 CResult::m_pTexture = NULL;
+CRanking *CResult::m_pRanking = NULL;
 
 //**********************************
 // マクロ定義
@@ -72,6 +76,12 @@ HRESULT CResult::Init(void)
 		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 
 	m_pPolygon->BindTexture(m_pTexture);
+
+	if (m_pRanking == NULL)
+	{
+		m_pRanking = CRanking::Create();
+	}
+
 	
 	return S_OK;
 }
@@ -97,6 +107,12 @@ void CResult::Uninit(void)
 		delete m_pPolygon;
 		m_pPolygon = NULL;
 	}
+
+	if (m_pRanking != NULL)
+	{
+		m_pRanking = NULL;
+	}
+
 
 	// 開放処理
 	Release();

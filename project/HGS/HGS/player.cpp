@@ -24,8 +24,8 @@
 //=============================================================================
 #define PLAYER_LIFE				(1)			// プレイヤーの体力
 #define PLAYER_SPEED			(10.0f)	 	// プレイヤーの速度
-#define PLAYER_INERTIA			(0.08f)	// 慣性の大きさ
-#define BULLET_INTERVAL			(15)		// 弾の連射間隔
+#define PLAYER_INERTIA			(0.08f)		// 慣性の大きさ
+#define BULLET_INTERVAL			(12)		// 弾の連射間隔
 
 //=============================================================================
 // static初期化
@@ -208,8 +208,31 @@ void CPlayer::PlayerControl(void)
 		pos.x += sinf(D3DX_PI / 2)*PLAYER_SPEED;
 	}
 
+
+	// 左判定
+	if (pos.x - PLAYER_SIZE_X / 2 < 0.0f)
+	{
+		pos.x = PLAYER_SIZE_X / 2;
+	}
+	// 右判定
+	if (pos.x + PLAYER_SIZE_X / 2 > SCREEN_WIDTH)
+	{
+		pos.x = SCREEN_WIDTH - PLAYER_SIZE_X / 2;
+	}
+	// 上判定
+	if (pos.y - PLAYER_SIZE_Y / 2 < 0.0f)
+	{
+		pos.y = PLAYER_SIZE_Y / 2;
+	}
+	// 下判定
+	if (pos.y + PLAYER_SIZE_Y / 2 > SCREEN_HEIGHT)
+	{
+		pos.y = SCREEN_HEIGHT - PLAYER_SIZE_Y / 2;
+	}
+
 	// 座標を渡す
 	SetPos(pos);
+
 }
 
 //=============================================================================

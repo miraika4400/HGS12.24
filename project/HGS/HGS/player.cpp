@@ -31,7 +31,7 @@
 // static初期化
 //=============================================================================
 LPDIRECT3DTEXTURE9 CPlayer::m_pTexture = NULL;
-
+bool CPlayer::m_bAlive = true;
 //=============================================================================
 // コンストラクタ
 //=============================================================================
@@ -44,6 +44,7 @@ CPlayer::CPlayer() :CScene2d(OBJTYPE_PLAYER)
 	m_StateCount = 0;
 	m_Inertia = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_bAlive = true;
 }
 
 //=============================================================================
@@ -106,6 +107,7 @@ HRESULT CPlayer::Init(void)
 	// ポリゴン初期化
 	CScene2d::Init();
 
+	m_bAlive = true;
 	return S_OK;
 }
 
@@ -316,9 +318,11 @@ void CPlayer::HitDamage(int nCount)
 	if (m_nLife <= 0)
 	{
 		CGrid::BreakAll(GetPos());
+		// 生存状態をfalseに
+		m_bAlive = false;
 		// 終了処理
 		Uninit();
-
+		
 		// フェード
 		//CManager::GetFade()->SetFade(CManager::MODE_RESULT);
 		return;

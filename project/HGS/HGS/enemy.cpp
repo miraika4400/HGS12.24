@@ -163,18 +163,21 @@ void CEnemy::Update(void)
 	// 変数宣言
 	CPlayer *pPlayer = NULL;
 
-	switch (mode)
+	if(CPlayer::GetAlive())
 	{
-	case CManager::MODE_GAME:
-		// プレイヤー情報を取得
-		pPlayer = CGame::GetPlayer();
-		break;
+		switch (mode)
+		{
+		case CManager::MODE_GAME:
+			// プレイヤー情報を取得
+			pPlayer = CGame::GetPlayer();
+			break;
 
-	case CManager::MODE_TUTORIAL:
-		// プレイヤー情報を取得
-		pPlayer = CTutorial::GetPlayer();
-		break;
+		case CManager::MODE_TUTORIAL:
+			// プレイヤー情報を取得
+			pPlayer = CTutorial::GetPlayer();
+			break;
 
+		}
 	}
 	if (mode == CManager::MODE_GAME)
 	{

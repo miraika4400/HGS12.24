@@ -302,7 +302,8 @@ void CPlayer::Shot(void)
 
 			m_nBulletCnt = 0;
 		}
-
+		// SEÄ¶
+		CManager::GetSound()->Play(CSound::LABEL_SE_SHOT);
 	}
 
 }
@@ -320,6 +321,9 @@ void CPlayer::HitDamage(int nCount)
 		CGrid::BreakAll(GetPos());
 		// ¶‘¶ó‘Ô‚ğfalse‚É
 		m_bAlive = false;
+
+		// SEÄ¶
+		CManager::GetSound()->Play(CSound::LABEL_SE_GAME_OVER);
 		// I—¹ˆ—
 		Uninit();
 		

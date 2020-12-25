@@ -15,6 +15,7 @@
 #include "scene2d.h"
 #include "fade.h"
 #include "diplay_off.h"
+#include "sound.h"
 
 //**********************************
 // マクロ定義
@@ -23,6 +24,7 @@
 #define TEXTURE_PATH2 "./data/Textures/Screen Crash.png"  // テクスチャ
 #define TEXTURE_PATH3 "./data/Textures/sand_screen2.png" // テクスチャ
 #define TEXTURE_PATH4 "./data/Textures/Black Out.png" // テクスチャ
+#define TEXTURE_PATH5 "./data/Textures/Screen Crash2.png" // テクスチャ
 
 #define GRID_SIZE D3DXVECTOR3(16.0f*4.0f,9.0f*4.0f,0.0f) // グリッドのサイズ
 #define SHAKE_COUNT 5
@@ -36,6 +38,7 @@
 // 静的メンバ変数宣言
 //**********************************
 LPDIRECT3DTEXTURE9 CGrid::m_apTexture[STATE_MAX] = {};                     // テクスチャ
+LPDIRECT3DTEXTURE9 CGrid::m_apTexCrash[CRASH_TYPE_NUM]{};      // テクスチャ
 CGrid *CGrid::m_apGrid[GRID_NUM_Y][GRID_NUM_X] = {};             // グリッド
 D3DXVECTOR3 CGrid::m_shake = D3DXVECTOR3(0.0f,0.0f,0.0f);        // ブレ
 D3DXVECTOR3 CGrid::m_shakeDist = D3DXVECTOR3(0.0f, 0.0f, 0.0f);  // ブレ目標値
@@ -134,6 +137,8 @@ HRESULT CGrid::Load(void)
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_PATH3, &m_apTexture[STATE_BREAK]);
 	D3DXCreateTextureFromFile(pDevice, TEXTURE_PATH4, &m_apTexture[STATE_END]);
 
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_PATH2, &m_apTexCrash[0]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_PATH5, &m_apTexCrash[1]);
 	return S_OK;
 }
 
@@ -518,13 +523,18 @@ void CGrid::SetState(STATE state)
 		m_pScene2d->SetPos(pos);                           // ポス
 		m_pScene2d->SetSize(size);                         // サイズ
 		m_pScene2d->SetPriority(OBJTYPE_UI);               // プライオリティ
-		m_pScene2d->BindTexture(m_apTexture[STATE_CRACK]); // テクスチャ
+		m_pScene2d->BindTexture(m_apTexCrash[rand()%CRASH_TYPE_NUM]); // テクスチャ
+
+																	  // SE再生
+		CManager::GetSound()->Play(CSound::LABEL_SE_BREAK_01);
 	}
 		break;
 	case STATE_BREAK:
 
 		BindTexture(m_apTexture[STATE_BREAK]);
 
+		// SE再生
+		CManager::GetSound()->Play(CSound::LABEL_SE_BREAK_02);
 		break;
 	case STATE_END:
 

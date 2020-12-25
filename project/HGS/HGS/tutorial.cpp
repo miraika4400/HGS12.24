@@ -173,7 +173,7 @@ void CTutorial::Update(void)
 
 	//	m_pPolygon->BindTexture(m_pTexture[m_nNumTutorial]);
 	//}
-	if (CManager::GetJoypad()->GetJoystickTrigger(11, 0))
+	if (CManager::GetJoypad()->GetJoystickTrigger(11, 0)|| CManager::GetKeyboard()->GetKeyTrigger(DIK_RETURN))
 	{
 		CManager::GetFade()->SetFade(CManager::MODE_GAME);
 	}

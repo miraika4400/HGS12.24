@@ -14,9 +14,9 @@ CSound::SOUNDPARAM CSound::m_aParam[SOUND_LABEL_MAX]
 {
 	{ "./data/Sounds/BGM/title.wav", -1 },
 	{ "./data/Sounds/BGM/gameBGM.wav", -1 },
-	{ "./data/Sounds/SE/BreakSE_01.wav", 0 },
-	{ "./data/Sounds/SE/BreakSE_02.wav", 0 },
-	{ "./data/Sounds/SE/Decision.wav", 0 },
+	{ "./data/Sounds/SE/BreakSE_01.wav", 0 }, // 破壊一
+	{ "./data/Sounds/SE/BreakSE_02.wav", 0 }, // 破壊二
+	{ "./data/Sounds/SE/Decision.wav", 0 },   //
 	{ "./data/Sounds/SE/game_over.wav", 0 },
 	{ "./data/Sounds/SE/shot.wav", 0 },
 };
@@ -176,6 +176,8 @@ HRESULT CSound::Init(HWND hWnd)
 		// ファイルをクローズ
 		CloseHandle(hFile);
 	}
+
+	m_apSourceVoice[LABEL_SE_BREAK_02]->SetVolume(3.0f);
 	return S_OK;
 }
 

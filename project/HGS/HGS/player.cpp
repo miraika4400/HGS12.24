@@ -64,7 +64,7 @@ HRESULT CPlayer::Load(void)
 	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
 
 	// テクスチャの読み込み
-	D3DXCreateTextureFromFile(pDevice, "date/TEXTURE/player001.png",
+	D3DXCreateTextureFromFile(pDevice, "data/Textures/Player_Animation.png",
 		&m_pTexture);		// テクスチャへのポインタ
 
 	return S_OK;
@@ -85,6 +85,7 @@ CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		pPlayer->SetPos(pos);		// プレイヤーの位置設定
 		pPlayer->SetSize(size);		// サイズの設定
 		pPlayer->BindTexture(m_pTexture);	// テクスチャ設定
+		pPlayer->InitAnimation(5, 7, -1);
 	}
 	return pPlayer;
 }

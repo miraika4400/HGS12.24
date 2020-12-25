@@ -112,7 +112,7 @@ HRESULT CRanking::Init(void)
 				pVtx[2].col = D3DCOLOR_RGBA(0, 100, 255, 255);	// 左下頂点の色	透明度255
 				pVtx[3].col = D3DCOLOR_RGBA(0, 100, 255, 255);	// 右下頂点の色	透明度255
 
-																// 頂点バッファをアンロックする
+				// 頂点バッファをアンロックする
 				pVtxBuff->Unlock();
 			}
 		}
@@ -123,7 +123,7 @@ HRESULT CRanking::Init(void)
 		// 数字のメモリ確保
 		m_apMyRanking[nCount] =
 			CNumber::Create(0,
-				D3DXVECTOR3(1170.0f - nCount*RANKING_INTERVAL_X, 660.0f, 0.0f),
+				D3DXVECTOR3(700.0f - nCount*RANKING_INTERVAL_X, 300.0f, 0.0f),
 				D3DXVECTOR3(MY_RANKING_SIZE_X, MY_RANKING_SIZE_Y, 0.0f),
 				D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 
@@ -135,6 +135,7 @@ HRESULT CRanking::Init(void)
 			m_apMyRanking[nCount]->SetNumber(nNum);
 		}
 	}
+
 	// ファイル入力
 	Save();
 
@@ -158,6 +159,16 @@ void CRanking::Uninit(void)
 				// 終了処理
 				m_apRanking[nCntRank][nCount]->Uninit();
 			}
+		}
+	}
+
+	for (int nCount = 0; nCount < MAX_NUMBER; nCount++)
+	{
+		if (m_apMyRanking[nCount] != NULL)
+		{
+			// 数字のメモリ確保
+			m_apMyRanking[nCount]->Uninit();
+
 		}
 	}
 	// メモリの開放処理
@@ -187,6 +198,15 @@ void CRanking::Draw(void)
 				// 描画処理
 				m_apRanking[nCntRank][nCount]->Draw();
 			}
+		}
+	}
+	for (int nCount = 0; nCount < MAX_NUMBER; nCount++)
+	{
+		if (m_apMyRanking[nCount] != NULL)
+		{
+			// 数字のメモリ確保
+			m_apMyRanking[nCount]->Draw();
+
 		}
 	}
 }

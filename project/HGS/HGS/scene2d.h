@@ -49,6 +49,9 @@ public:
 	// カラーのセット、取得
 	void SetColor(const D3DXCOLOR col);
 	D3DXCOLOR GetColor(void) { return m_col; }
+	void InitAnimation(int nCounterAnim, int nPatternAnim, int nLoop);	// アニメーション情報初期化
+	void UpdateAnimation(void);											// アニメーションの更新
+
 
 	void SetTextureUV(const D3DXVECTOR2 uv[NUM_VERTEX]); // テクスチャのUV座標のセット
 	void SetAddMode(bool bBool) { m_bAddMode = bBool; }  // 加算モードのセット
@@ -63,6 +66,12 @@ private:
 	D3DXVECTOR3 m_size;                  // ポリゴンのサイズ
 	D3DXCOLOR m_col;                     // 色
 	bool m_bAddMode;                     // 加算合成か
+	int m_nCountAnim;						// アニメーションテクスチャ
+	int m_nCountAnimPattern;				// アニメーションのパターン
+	int m_nCounterAnim;						// アニメーションのカウンター
+	int m_nPatternAnim;						// アニメーションのパターン数
+	int m_nLoop;							// ループするかどうか
+
 };
 
 #endif

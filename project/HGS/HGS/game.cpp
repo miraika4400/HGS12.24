@@ -27,11 +27,11 @@
 //=============================
 // É}ÉNÉçíËã`
 //=============================
-#define ENEMY_FIRST_INTER		(150)
-#define ENEMY_SECOND_INTER		(100)
-#define ENEMY_THIRD_INTER		(80)
-#define ENEMY_FOURS_INTER		(65)
-#define ENEMY_FIVE_INTER		(50)
+#define ENEMY_FIRST_INTER		(110)
+#define ENEMY_SECOND_INTER		(85)
+#define ENEMY_THIRD_INTER		(70)
+#define ENEMY_FOURS_INTER		(60)
+#define ENEMY_FIVE_INTER		(45)
 #define ENEMY_SIX_INTER			(35)
 #define ENEMY_SEVEN_INTER		(20)
 #define ENEMY_EIGHT_INTER		(15)

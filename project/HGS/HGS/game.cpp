@@ -134,7 +134,7 @@ void CGame::Update(void)
 {
 	if (CManager::GetKeyboard()->GetKeyTrigger(DIK_RETURN))
 	{
-		CManager::GetFade()->SetFade(CManager::MODE_RESULT);
+		//CManager::GetFade()->SetFade(CManager::MODE_RESULT);
 	}
 
 	// ƒQ[ƒ€‚ÌÝ’è
@@ -142,7 +142,7 @@ void CGame::Update(void)
 
 	if (CManager::GetMouse()->GetMouseTrigger(0))
 	{
-		CGrid::BreakAll(CManager::GetMouse()->GetMousePos());
+		//CGrid::BreakAll(CManager::GetMouse()->GetMousePos());
 	}
 	CGrid::Shake();
 }

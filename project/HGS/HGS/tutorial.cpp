@@ -30,7 +30,7 @@ CEnemy *CTutorial::m_pEnemy = NULL;
 //**********************************
 // マクロ定義
 //**********************************
-#define  TITLE_TEXTURE_1_PATH "./data/Textures/tutorial000.png" // テクスチャ
+#define  TITLE_TEXTURE_1_PATH "./data/Textures/Tutorial.png" // テクスチャ
 #define  TITLE_TEXTURE_2_PATH "./data/Textures/tutorial001.png" // テクスチャ
 #define  TITLE_TEXTURE_3_PATH "./data/Textures/tutorial002.png" // テクスチャ
 
@@ -70,33 +70,36 @@ HRESULT CTutorial::Init(void)
 	// デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 
-	// プレイヤーが使われていないとき
-	if (m_pPlayer == NULL)
-	{
-		// インスタンス生成
-		m_pPlayer = CPlayer::Create(D3DXVECTOR3(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 0.0f),
-			D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, 0.0f));
-	}
+	//// プレイヤーが使われていないとき
+	//if (m_pPlayer == NULL)
+	//{
+	//	// インスタンス生成
+	//	m_pPlayer = CPlayer::Create(D3DXVECTOR3(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 0.0f),
+	//		D3DXVECTOR3(PLAYER_SIZE_X, PLAYER_SIZE_Y, 0.0f));
+	//}
 
-	// グリッド生成
-	CGrid::CreateAll();
+	//// グリッド生成
+	//CGrid::CreateAll();
 
-	if (m_pEnemy == NULL)
-	{
-		// エネミー生成
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(940.0f, 180.0f, 0.0f), D3DXVECTOR3(ENEMY_SIZE_X, ENEMY_SIZE_Y, 0.0f));
-	}
+	//if (m_pEnemy == NULL)
+	//{
+	//	// エネミー生成
+	//	m_pEnemy = CEnemy::Create(D3DXVECTOR3(940.0f, 180.0f, 0.0f), D3DXVECTOR3(ENEMY_SIZE_X, ENEMY_SIZE_Y, 0.0f));
+	//}
 
 	// テクスチャの生成
-	//D3DXCreateTextureFromFile(pDevice, TITLE_TEXTURE_1_PATH, &m_pTexture[0]);
+	D3DXCreateTextureFromFile(pDevice, TITLE_TEXTURE_1_PATH, &m_pTexture[0]);
 	//D3DXCreateTextureFromFile(pDevice, TITLE_TEXTURE_2_PATH, &m_pTexture[1]);
 	//D3DXCreateTextureFromFile(pDevice, TITLE_TEXTURE_3_PATH, &m_pTexture[2]);
 
-	//m_pPolygon = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f),
-	//	D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f),
-	//	D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+	if (m_pPolygon == NULL)
+	{
+		m_pPolygon = CPolygon::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f),
+			D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f),
+			D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 
-	//m_pPolygon->BindTexture(m_pTexture[0]);
+		m_pPolygon->BindTexture(m_pTexture[0]);
+	}
 	return S_OK;
 }
 
@@ -115,26 +118,26 @@ void CTutorial::Uninit(void)
 		}
 	}
 
-	// プレイヤーが使われていたら
-	if (m_pPlayer != NULL)
-	{
-		m_pPlayer = NULL;
-	}
-
-	if (m_pEnemy != NULL)
-	{
-		m_pEnemy = NULL;
-	}
-
-	//if (m_pPolygon != NULL)
+	//// プレイヤーが使われていたら
+	//if (m_pPlayer != NULL)
 	//{
-	//	// ポリゴンの終了処理
-	//	m_pPolygon->Uninit();
-
-	//	// メモリの解放
-	//	delete m_pPolygon;
-	//	m_pPolygon = NULL;
+	//	m_pPlayer = NULL;
 	//}
+
+	//if (m_pEnemy != NULL)
+	//{
+	//	m_pEnemy = NULL;
+	//}
+
+	if (m_pPolygon != NULL)
+	{
+		// ポリゴンの終了処理
+		m_pPolygon->Uninit();
+
+		// メモリの解放
+		delete m_pPolygon;
+		m_pPolygon = NULL;
+	}
 
 	// 開放処理
 	Release();
@@ -145,9 +148,12 @@ void CTutorial::Uninit(void)
 //=============================
 void CTutorial::Update(void)
 {
-	// ポリゴンの更新処理
-	m_pPolygon->Update();
+	if (m_pPolygon != NULL)
+	{
 
+		// ポリゴンの更新処理
+		m_pPolygon->Update();
+	}
 	//if (CManager::GetKeyboard()->GetKeyTrigger(DIK_RETURN) ||
 	//	CManager::GetMouse()->GetMouseTrigger(0) ||
 	//	CManager::GetJoypad()->GetJoystickTrigger(3, 0))
@@ -184,8 +190,11 @@ void CTutorial::Update(void)
 //=============================
 void CTutorial::Draw(void)
 {
-	// ポリゴンの描画処理
-//	m_pPolygon->Draw();
+	if (m_pPolygon != NULL)
+	{
+		// ポリゴンの描画処理
+		m_pPolygon->Draw();
+	}
 }
 
 //=============================

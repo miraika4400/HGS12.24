@@ -15,7 +15,7 @@
 //**********************************
 // マクロ定義
 //**********************************
-#define NUMBER_TEXTURE_PATH "./data/Textures/Number010.png" // テクスチャのパス
+#define NUMBER_TEXTURE_PATH "./data/Textures/number_H2.png" // テクスチャのパス
 
 //**********************************
 // 静的メンバ変数宣言

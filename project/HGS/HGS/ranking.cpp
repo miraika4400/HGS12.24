@@ -161,6 +161,8 @@ void CRanking::Uninit(void)
 			{
 				// I—¹ˆ—
 				m_apRanking[nCntRank][nCount]->Uninit();
+				delete m_apRanking[nCntRank][nCount];
+				m_apRanking[nCntRank][nCount] = NULL;
 			}
 		}
 	}
@@ -171,6 +173,8 @@ void CRanking::Uninit(void)
 		{
 			// ”Žš‚Ìƒƒ‚ƒŠŠm•Û
 			m_apMyRanking[nCount]->Uninit();
+			delete m_apMyRanking[nCount];
+			m_apMyRanking[nCount] = NULL;
 
 		}
 	}

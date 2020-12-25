@@ -12,12 +12,13 @@
 #include "grid.h"
 #include "manager.h"
 #include "renderer.h"
-//#include "scene2d.h"
+#include "scene2d.h"
 
 //**********************************
 // マクロ定義
 //**********************************
-#define TEXTURE_PATH "./data/Textures/Screen Animation.png" // テクスチャ
+#define TEXTURE_PATH "./data/Textures/Scene Animation.png" // テクスチャ
+#define TEXTURE_PATH2 "./data/Textures/break.png" // テクスチャ
 #define GRID_SIZE D3DXVECTOR3(16.0f*4.0f,9.0f*4.0f,0.0f) // グリッドのサイズ
 #define SHAKE_COUNT 5
 #define ANIM_SPEED 4          // アニメーション速度
@@ -27,7 +28,7 @@
 //**********************************
 // 静的メンバ変数宣言
 //**********************************
-LPDIRECT3DTEXTURE9 CGrid::m_pTexture = NULL;                     // テクスチャ
+LPDIRECT3DTEXTURE9 CGrid::m_apTexture[STATE_MAX] = {};                     // テクスチャ
 CGrid *CGrid::m_apGrid[GRID_NUM_Y][GRID_NUM_X] = {};             // グリッド
 D3DXVECTOR3 CGrid::m_shake = D3DXVECTOR3(0.0f,0.0f,0.0f);        // ブレ
 D3DXVECTOR3 CGrid::m_shakeDist = D3DXVECTOR3(0.0f, 0.0f, 0.0f);  // ブレ目標値
@@ -44,6 +45,8 @@ CGrid::CGrid() : CScene2d(OBJTYPE_MAP)
 	m_nCntAnim = 0;       // アニメーションカウント
 	m_nAnimX = 0;         // アニメーションX軸
 	m_nAnimY = 0;         // アニメーションY軸
+	m_pScene2d = NULL;
+	m_state = STATE_NORMAL;
 }
 
 //=============================
@@ -81,7 +84,7 @@ void CGrid::CreateAll(void)
 				m_apGrid[nCntY][nCntX]->SetPos(D3DXVECTOR3(fPosX, fPosY, 0.0f));
 				m_apGrid[nCntY][nCntX]->SetSize(GRID_SIZE);
 				// テクスチャの設定
-				m_apGrid[nCntY][nCntX]->BindTexture(m_pTexture);
+				m_apGrid[nCntY][nCntX]->BindTexture(m_apTexture[STATE_NORMAL]);
 				// グリッド番号の設定
 				m_apGrid[nCntY][nCntX]->m_gridNum.y = nCntY;
 				m_apGrid[nCntY][nCntX]->m_gridNum.x = nCntX;
@@ -108,9 +111,10 @@ HRESULT CGrid::Load(void)
 	//デバイスの取得
 	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
 
+	
 	//テクスチャの読み込み
-	D3DXCreateTextureFromFile(pDevice, TEXTURE_PATH, &m_pTexture);
-
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_PATH, &m_apTexture[STATE_NORMAL]);
+	D3DXCreateTextureFromFile(pDevice, TEXTURE_PATH2, &m_apTexture[STATE_CRACK]);
 	return S_OK;
 }
 
@@ -119,10 +123,13 @@ HRESULT CGrid::Load(void)
 //=======================================================================================
 void CGrid::Unload(void)
 {
-	if (m_pTexture != NULL)
+	for (int nCnt = 0; nCnt < STATE_MAX; nCnt++)
 	{
-		m_pTexture->Release();
-		m_pTexture = NULL;
+		if (m_apTexture[nCnt] != NULL)
+		{
+			m_apTexture[nCnt]->Release();
+			m_apTexture[nCnt] = NULL;
+		}
 	}
 }
 
@@ -147,8 +154,34 @@ void CGrid::Break(D3DXVECTOR3 pos)
 				if (pos.x > gridPos.x - gridSize.x && pos.x < gridPos.x + gridSize.x  &&
 					pos.y > gridPos.y - gridSize.y && pos.y < gridPos.y + gridSize.y)
 				{
-					m_apGrid[nCntY][nCntX]->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
-					m_apGrid[nCntY][nCntX]->BindTexture(NULL);
+					if (m_apGrid[nCntY][nCntX]->m_state == STATE_NORMAL)
+					{
+						// 状態をひび割れにする
+						m_apGrid[nCntY][nCntX]->m_state = STATE_CRACK;
+						// 座標
+						D3DXVECTOR3 pos = m_apGrid[nCntY][nCntX]->GetPos();
+						// サイズ
+						D3DXVECTOR3 size = m_apGrid[nCntY][nCntX]->GetSize();
+
+						// ひび割れポリゴンの生成
+						m_apGrid[nCntY][nCntX]->m_pScene2d = CScene2d::Create();                   // 生成
+						m_apGrid[nCntY][nCntX]->m_pScene2d->SetPos(pos);                           // ポス
+						m_apGrid[nCntY][nCntX]->m_pScene2d->SetSize(size);                         // サイズ
+						m_apGrid[nCntY][nCntX]->m_pScene2d->SetPriority(OBJTYPE_UI);               // プライオリティ
+						m_apGrid[nCntY][nCntX]->m_pScene2d->BindTexture(m_apTexture[STATE_CRACK]); // テクスチャ
+
+					}
+					else if(m_apGrid[nCntY][nCntX]->m_state == STATE_CRACK)
+					{
+						// 壊れ状態にする
+						m_apGrid[nCntY][nCntX]->m_state = STATE_BREAK;
+
+						// 色を黒に
+						m_apGrid[nCntY][nCntX]->m_pScene2d->SetColor(D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+						// テクスチャは張らない
+						m_apGrid[nCntY][nCntX]->m_pScene2d->BindTexture(NULL);
+					}
+					
 					Shake(true);
 					break;
 				}
@@ -187,6 +220,10 @@ void CGrid::Shake(bool bRand)
 					{
 						// 位置の設定
 						m_apGrid[nCntY][nCntX]->SetPos(D3DXVECTOR3(fPosX, fPosY, 0.0f));
+						if (m_apGrid[nCntY][nCntX]->m_pScene2d != NULL)
+						{
+							m_apGrid[nCntY][nCntX]->m_pScene2d->SetPos(m_apGrid[nCntY][nCntX]->GetPos() + m_shakeDist);
+						}
 
 					}
 					// Y軸をずらす
@@ -229,6 +266,10 @@ void CGrid::Shake(bool bRand)
 						{
 							// 位置の設定
 							m_apGrid[nCntY][nCntX]->SetPos(D3DXVECTOR3(fPosX, fPosY, 0.0f));
+							if (m_apGrid[nCntY][nCntX]->m_pScene2d != NULL)
+							{
+								m_apGrid[nCntY][nCntX]->m_pScene2d->SetPos(m_apGrid[nCntY][nCntX]->GetPos() + m_shakeDist);
+							}
 
 						}
 						// Y軸をずらす
@@ -248,6 +289,10 @@ void CGrid::Shake(bool bRand)
 				for (int nCntX = 0; nCntX < GRID_NUM_X; nCntX++)
 				{
 					m_apGrid[nCntY][nCntX]->SetPos( m_apGrid[nCntY][nCntX]->GetPos()+ m_shakeDist);
+					if (m_apGrid[nCntY][nCntX]->m_pScene2d != NULL)
+					{
+						m_apGrid[nCntY][nCntX]->m_pScene2d->SetPos(m_apGrid[nCntY][nCntX]->GetPos() + m_shakeDist);
+					}
 				}
 			}
 		}
@@ -278,7 +323,11 @@ HRESULT CGrid::Init(void)
 	//	m_pScene2d->SetPriority(OBJTYPE_MAP);
 	//}
 	
+	
+
 	// 変数の初期化
+	// 状態
+	m_state = STATE_NORMAL;
 
 	// テクスチャUV座標の初期化
 	m_nAnimX = rand()% MAX_ANIMATION_X;

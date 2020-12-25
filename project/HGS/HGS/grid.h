@@ -16,7 +16,7 @@
 //=============================
 // 前方宣言
 //=============================
-//class CScene2d;
+class CScene2d;
 
 //=============================
 // マクロ定義
@@ -36,6 +36,13 @@ public:
 	//======================
 	// 列挙宣言
 	//======================
+	typedef enum
+	{
+		STATE_NORMAL = 0, // 通常
+		STATE_CRACK,      // ヒビ
+		STATE_BREAK,      // 破壊
+		STATE_MAX         // 状態数
+	}STATE;
 
 	//======================
 	// メンバ関数
@@ -67,17 +74,19 @@ private:
 	//======================
 	// メンバ変数
 	//======================
-	static LPDIRECT3DTEXTURE9 m_pTexture;           // テクスチャ
-	static CGrid *m_apGrid[GRID_NUM_Y][GRID_NUM_X]; // グリッド
-	static D3DXVECTOR3 m_shake;                     // ブレ
-	static D3DXVECTOR3 m_shakeDist;                 // ブレ
-	static bool m_bShake;                           // ブレフラグ
+	static LPDIRECT3DTEXTURE9 m_apTexture[STATE_MAX];      // テクスチャ
+	static CGrid *m_apGrid[GRID_NUM_Y][GRID_NUM_X];       // グリッド
+	static D3DXVECTOR3 m_shake;                           // ブレ
+	static D3DXVECTOR3 m_shakeDist;                       // ブレ
+	static bool m_bShake;                                 // ブレフラグ
 	static int m_nCntShake;
+	CScene2d *m_pScene2d;
 	//CScene2d*m_pScene2d;   // ポリゴン
 	D3DXVECTOR2 m_gridNum; // グリッド番号
 	int      m_nCntAnim;       // アニメーションカウント
 	int      m_nAnimX;         // アニメーションX軸
 	int      m_nAnimY;         // アニメーションY軸
+	STATE m_state;           // 状態
 };
 
 

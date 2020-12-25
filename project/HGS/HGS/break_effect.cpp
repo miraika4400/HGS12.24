@@ -17,13 +17,14 @@
 #include "particle.h"
 #include "score.h"
 #include "game.h"
+#include "player.h"
 
 //*****************************
 // マクロ定義
 //*****************************
 #define MAX_SIZE 1500.0f  // 最大サイズ
-#define RATE_SIZE 0.08f   // サイズ係数
-#define RATE_ALFA 0.1f    // アルファ値係数
+#define RATE_SIZE 0.03f   // サイズ係数
+#define RATE_ALFA 0.05f    // アルファ値係数
 
 //******************************
 // 静的メンバ変数宣言
@@ -95,7 +96,7 @@ void CBreakEffect::Uninit(void)
 void CBreakEffect::Update(void)
 {
 
-	int nRnd = rand() % 10 + 10;
+	int nRnd = rand() % 10 + 15;
 	for (int nCntparticle = 0; nCntparticle < nRnd; nCntparticle++)
 	{
 		// ランダムな距離
@@ -111,15 +112,42 @@ void CBreakEffect::Update(void)
 
 
 		// ランダムなサイズ
-		int nRandSize = rand() % 5 + 20;
+		int nRandSize = rand() % 7 + 20;
 		// パーティクルの生成
 		CParticle::Create(randPos,
 			D3DXVECTOR3((float)(rand() % 3 - 1),
 			(float)(rand() % 3 - 1), 0.0f),
 			D3DXVECTOR3((float)nRandSize, (float)nRandSize, 0.0f),
-			rand() % 5 + 5,
+			rand() % 5 + 1,
 			D3DXCOLOR(1.0f,(float)(rand() % 100) / 100.0f, 0.5f,  m_fAlfa))->SetAddMode(false);
 	}
+
+	nRnd = rand() % 10 + 20;
+	for (int nCntparticle = 0; nCntparticle < nRnd; nCntparticle++)
+	{
+		// ランダムな距離
+		float fRandDistance = (float)(rand() % 500 - 250) / 100;
+		// ランダムな角度
+		int nRandAngle = rand() % 360;
+
+		// ランダムな座標
+		D3DXVECTOR3 randPos;
+		randPos.x = m_pos.x + cosf(D3DXToRadian(nRandAngle))*( m_fMaxsize/4 - m_size.x/4  + fRandDistance);
+		randPos.y = m_pos.y + sinf(D3DXToRadian(nRandAngle))*( m_fMaxsize/4 - m_size.y/4  + fRandDistance);
+		randPos.z = 0.0f;
+
+		// ランダムなサイズ
+		int nRandSize = rand() % 7 + 15;
+		// パーティクルの生成
+		CParticle::Create(randPos,
+			D3DXVECTOR3((float)(rand() % 3 - 1),(float)(rand() % 3 - 1), 0.0f),
+			D3DXVECTOR3((float)nRandSize, (float)nRandSize, 0.0f),
+			rand() % 5 + 1,
+			D3DXCOLOR(1.0f, (float)(rand() % 100) / 100.0f, 0.5f, m_fAlfa))->SetAddMode(false);
+	}
+
+	
+
 
 	m_fAlfa += ((0.0f) - m_fAlfa)*RATE_ALFA;
 

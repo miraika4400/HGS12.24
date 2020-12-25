@@ -41,6 +41,7 @@ public:
 	// カラーのセット、取得
 	void SetColor(const D3DXCOLOR col);
 	D3DXCOLOR GetColor(void) { return m_col; }
+	LPDIRECT3DVERTEXBUFFER9 GetVtxBuff(void) { return m_pVtxBuff; }
 private:
 	//============
 	// メンバ変数

@@ -22,6 +22,7 @@
 #include "enemy.h"
 #include "grid.h"
 #include "break_effect.h"
+#include "ranking.h"
 
 //=============================
 // マクロ定義
@@ -117,6 +118,8 @@ void CGame::Uninit(void)
 	// スコアが使われていたら
 	if (m_pScore != NULL)
 	{
+		CRanking::SetRanking(m_pScore->GetScore());
+
 		m_pScore = NULL;
 	}
 

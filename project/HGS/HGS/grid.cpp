@@ -30,7 +30,7 @@
 #define MAX_ANIMATION_X 18        // アニメーション数 横
 #define MAX_ANIMATION_Y 1         // アニメーション数 縦
 #define END_AREA 1250             // allBreakAreaこの値以上ならリザルトに行く
-#define END_AREA_ADD 6.0f         // allBreakAreaこの値以上ならリザルトに行く
+#define END_AREA_ADD 7.0f         // allBreakAreaこの値以上ならリザルトに行く
 
 //**********************************
 // 静的メンバ変数宣言

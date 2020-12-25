@@ -53,6 +53,7 @@ CTitle * CTitle::Create(void)
 	CTitle *pTitle = new CTitle;
 	// ‰Šú‰»
 	pTitle->Init();
+
 	return pTitle;
 }
 
@@ -71,6 +72,7 @@ HRESULT CTitle::Init(void)
 		D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 
 	m_pPolygon->BindTexture(m_pTexture);
+
 	
 	return S_OK;
 }
@@ -96,6 +98,7 @@ void CTitle::Uninit(void)
 		delete m_pPolygon;
 		m_pPolygon = NULL;
 	}
+
 
 	// ŠJ•úˆ—
 	Release();

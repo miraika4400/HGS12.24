@@ -66,7 +66,7 @@ HRESULT CPlayer::Load(void)
 	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
 
 	// テクスチャの読み込み
-	D3DXCreateTextureFromFile(pDevice, "data/Textures/Player_Animation.png",
+	D3DXCreateTextureFromFile(pDevice, "data/Textures/Player_Animatio.png",
 		&m_pTexture);		// テクスチャへのポインタ
 
 	return S_OK;

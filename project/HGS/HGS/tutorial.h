@@ -20,6 +20,7 @@
 //*****************************
 class CPolygon;
 class CPlayer;
+class CEnemy;
 
 //*****************************
 // マクロ定義
@@ -48,6 +49,7 @@ public:
 
 	void SetGame(void);			// ゲームの設定
 	static CPlayer *GetPlayer(void);	// プレイヤーの情報
+	static CEnemy *GetEnemy(void);
 private:
 	//============
 	// メンバ変数
@@ -56,6 +58,7 @@ private:
 	CPolygon *m_pPolygon;                               // ポリゴン
 	int m_nNumTutorial;                                 // チュートリアル数
 	static CPlayer *m_pPlayer;							// プレイヤー
+	static CEnemy *m_pEnemy;							// エネミー
 };
 
 #endif

@@ -146,7 +146,7 @@ HRESULT CBullet::Load(void)
 	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
 
 	// テクスチャの読み込み
-	D3DXCreateTextureFromFile(pDevice, "date/TEXTURE/bullet000.png",
+	D3DXCreateTextureFromFile(pDevice, "data/Textures/Bullet.png",
 		&m_apTexture[0]);
 
 	return S_OK;

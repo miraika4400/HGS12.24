@@ -73,6 +73,7 @@ CEnemy * CEnemy::Create(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		pEnemy->SetSize(size);					// サイズ設定
 		pEnemy->m_nLife = ENEMY_LIFE;			// 体力
 		pEnemy->BindTexture(m_apTexture[0]);	// テクスチャ設定
+		pEnemy->InitAnimation(5, 7, -1);
 	}
 
 	return pEnemy;
@@ -89,7 +90,7 @@ HRESULT CEnemy::Load(void)
 	LPDIRECT3DDEVICE9 pDevice = pRenderer->GetDevice();
 
 	// テクスチャの読み込み
-	D3DXCreateTextureFromFile(pDevice, "data/Textures/enemy.png",
+	D3DXCreateTextureFromFile(pDevice, "data/Textures/Enemy_Animation.png",
 		&m_apTexture[0]);
 
 	return S_OK;

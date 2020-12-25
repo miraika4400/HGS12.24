@@ -35,8 +35,8 @@ public:
 		OBJTYPE_NONE = 0,
 		OBJTYPE_BG,         // 背景
 		OBJTYPE_ENEMY,		// エネミー
-		OBJTYPE_PLAYER,     // プレイヤー
 		OBJTYPE_BULLET,		// バレット
+		OBJTYPE_PLAYER,     // プレイヤー
 		OBJTYPE_MOTION,     // モーション
 		OBJTYPE_PARTICLE,   // パーティクル
 		OBJTYPE_MAP,        // ステージ

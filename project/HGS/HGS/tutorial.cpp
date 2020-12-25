@@ -25,6 +25,7 @@
 //**********************************
 LPDIRECT3DTEXTURE9 CTutorial::m_pTexture[TUTORIAL_NUM] = {};
 CPlayer *CTutorial::m_pPlayer = NULL;
+CEnemy *CTutorial::m_pEnemy = NULL;
 
 //**********************************
 // マクロ定義
@@ -80,8 +81,11 @@ HRESULT CTutorial::Init(void)
 	// グリッド生成
 	CGrid::CreateAll();
 
-	// エネミー生成
-	CEnemy::Create(D3DXVECTOR3(940.0f, 180.0f, 0.0f), D3DXVECTOR3(ENEMY_SIZE_X, ENEMY_SIZE_Y, 0.0f));
+	if (m_pEnemy == NULL)
+	{
+		// エネミー生成
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(940.0f, 180.0f, 0.0f), D3DXVECTOR3(ENEMY_SIZE_X, ENEMY_SIZE_Y, 0.0f));
+	}
 
 	// テクスチャの生成
 	//D3DXCreateTextureFromFile(pDevice, TITLE_TEXTURE_1_PATH, &m_pTexture[0]);
@@ -115,6 +119,11 @@ void CTutorial::Uninit(void)
 	if (m_pPlayer != NULL)
 	{
 		m_pPlayer = NULL;
+	}
+
+	if (m_pEnemy != NULL)
+	{
+		m_pEnemy = NULL;
 	}
 
 	//if (m_pPolygon != NULL)

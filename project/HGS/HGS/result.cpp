@@ -31,7 +31,7 @@ CRanking *CResult::m_pRanking = NULL;
 //**********************************
 // マクロ定義
 //**********************************
-#define  TITLE_TEXTURE_PATH "./data/Textures/result001.png" // テクスチャ
+#define  TITLE_TEXTURE_PATH "data/Textures/Result.png" // テクスチャ
 
 //=============================
 // コンストラクタ

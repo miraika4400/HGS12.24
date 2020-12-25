@@ -18,13 +18,13 @@
 //=============================================================================
 #define MAX_NUMBER		(2)				// ナンバーの桁数
 #define MAX_RANKING		(5)				// ランキングの数
-#define RANKING_POS_X	(700.0f)		// ランキングの横の座標
-#define RANKING_POS_Y	(160.0f)		// ランキングの縦の座標
-#define RANKING_SIZE_X	(35.0f)			// ランキングの横のサイズ
-#define RANKING_SIZE_Y	(40.0f)			// ランキングの縦のサイズ
+#define RANKING_POS_X	(820.0f)		// ランキングの横の座標
+#define RANKING_POS_Y	(210.0f)		// ランキングの縦の座標
+#define RANKING_SIZE_X	(15.0f)			// ランキングの横のサイズ
+#define RANKING_SIZE_Y	(20.0f)			// ランキングの縦のサイズ
 
-#define MY_RANKING_SIZE_X	(35.0f)		// ランキングの横のサイズ
-#define MY_RANKING_SIZE_Y	(40.0f)		// ランキングの縦のサイズ
+#define MY_RANKING_SIZE_X	(55.0f)		// ランキングの横のサイズ
+#define MY_RANKING_SIZE_Y	(60.0f)		// ランキングの縦のサイズ
 
 //=============================================================================
 // 前置宣言

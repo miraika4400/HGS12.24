@@ -176,10 +176,11 @@ void CEnemy::Update(void)
 		break;
 
 	}
-	if (pPlayer != NULL)
+	if (mode == CManager::MODE_GAME)
 	{
-		if (mode == CManager::MODE_GAME)
+		if (pPlayer != NULL)
 		{
+
 			D3DXVECTOR3 Ppos = pPlayer->GetPos();
 
 			//自機を取得する
@@ -210,13 +211,13 @@ void CEnemy::Update(void)
 			}
 		}
 	}
-		// ライフが0だったら
-		if (m_nLife <= 0)
-		{
-			// エネミー削除
-			Uninit();
-			CGrid::Break(GetPos());
-			CBreakEffect::Create(GetPos());
+	// ライフが0だったら
+	if (m_nLife <= 0)
+	{
+		// エネミー削除
+		Uninit();
+		CGrid::Break(GetPos());
+		CBreakEffect::Create(GetPos());
 	}
 }
 
@@ -267,7 +268,7 @@ bool CEnemy::Collision(void)
 				targetPos.y + ENEMY_SIZE_Y / 2 >pos.y - BULLET_SIZE_Y)
 			{
 				// 弾を消す
-				m_nLife = 0;
+		//		m_nLife = 0;
 
 				// 敵にダメージ
 				pPlayer->HitDamage(ENEMY_DAMAGE);

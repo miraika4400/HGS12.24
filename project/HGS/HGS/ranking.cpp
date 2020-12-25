@@ -19,8 +19,11 @@
 // マクロ定義
 //=============================================================================
 #define SAVE_FILENAME "data/Text/Ranking.txt"		// ファイル名
-#define RANKING_INTERVAL_X	(55.0f)					// 数字の間隔
-#define RANKING_INTERVAL_Y	(100.0f)				// 数字の間隔
+#define RANKING_INTERVAL_X	(45.0f)					// 数字の間隔
+#define RANKING_INTERVAL_Y	(83.0f)					// 数字の間隔
+
+#define MY_RANKING_INTERVAL_X	(80.0f)					// 数字の間隔
+#define MY_RANKING_INTERVAL_Y	(88.0f)					// 数字の間隔
 
 #define RANKING_FLASH_NUM	(3)						// ランキング点滅フレーム
 
@@ -123,7 +126,7 @@ HRESULT CRanking::Init(void)
 		// 数字のメモリ確保
 		m_apMyRanking[nCount] =
 			CNumber::Create(0,
-				D3DXVECTOR3(700.0f - nCount*RANKING_INTERVAL_X, 300.0f, 0.0f),
+				D3DXVECTOR3(470.0f - nCount*MY_RANKING_INTERVAL_X, 370.0f, 0.0f),
 				D3DXVECTOR3(MY_RANKING_SIZE_X, MY_RANKING_SIZE_Y, 0.0f),
 				D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 

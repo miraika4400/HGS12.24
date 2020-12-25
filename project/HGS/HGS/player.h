@@ -57,6 +57,8 @@ public:
 	void PlayerControl(void);					// プレイヤー制御
 	void UpdateState(void);						// プレイヤー状態更新
 	void Shot(void);							// 弾の発射関数
+
+	static bool GetAlive(void) { return m_bAlive; };                          // 生存判定
 private:
 	PLAYER_STATE m_State;					// プレイヤーの状態
 	int m_StateCount;						// プレイヤーの状態カウンター
@@ -66,6 +68,7 @@ private:
 	int m_nStock;							// ストック
 	D3DXVECTOR3 m_Inertia;					// 慣性
 	D3DXVECTOR3 m_move;						// 移動
+	static bool m_bAlive;                          // 生存判定
 
 };
 

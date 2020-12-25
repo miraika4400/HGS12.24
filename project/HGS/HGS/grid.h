@@ -24,7 +24,7 @@ class CScene2d;
 #define GRID_NUM_Y 10                           // グリッド数・縦
 #define GRID_NUM_X 10                           // グリッド数・横
 #define GRID_GOAL D3DXVECTOR2(10, 8)
-
+#define CRASH_TYPE_NUM 2
 //=============================
 // クラス定義
 //=============================
@@ -79,6 +79,7 @@ private:
 	// メンバ変数
 	//======================
 	static LPDIRECT3DTEXTURE9 m_apTexture[STATE_MAX];      // テクスチャ
+	static LPDIRECT3DTEXTURE9 m_apTexCrash[CRASH_TYPE_NUM];      // テクスチャ
 	static CGrid *m_apGrid[GRID_NUM_Y][GRID_NUM_X];       // グリッド
 	static D3DXVECTOR3 m_shake;                           // ブレ
 	static D3DXVECTOR3 m_shakeDist;                       // ブレ

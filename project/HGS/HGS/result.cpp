@@ -20,7 +20,7 @@
 #include "score.h"
 #include "display_on.h"
 #include "ranking.h"
-
+#include "sound.h"
 
 //**********************************
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -131,6 +131,7 @@ void CResult::Update(void)
 		CManager::GetMouse()->GetMouseTrigger(0) || 
 		CManager::GetJoypad()->GetJoystickTrigger(3, 0))
 	{
+		CManager::GetSound()->Play(CSound::LABEL_SE_DECISION);
 		CDisplayON::Create();
 	}
 }

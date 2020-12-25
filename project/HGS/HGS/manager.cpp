@@ -30,6 +30,8 @@
 #include "bullet.h"
 #include "enemy.h"
 #include "grid.h"
+#include "diplay_off.h"
+#include "display_on.h"
 
 //=============================
 // 静的メンバ変数宣言
@@ -127,7 +129,8 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, bool bWindow)
 	CPlayer::Load();
 	CBullet::Load();
 	CEnemy::Load();
-
+	CDisplayOff::Load();
+	CDisplayON::Load();
 	// ポーズ状態の時
 	return S_OK;
 }
@@ -149,7 +152,8 @@ void CManager::Uninit(void)
 	CBullet::UnLoad();
 	CEnemy::UnLoad();
 	CGrid::Unload();
-
+	CDisplayOff::Unload();
+	CDisplayON::Unload();
 	if (m_pSound != NULL)
 	{
 		// 終了処理

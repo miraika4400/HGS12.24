@@ -18,6 +18,7 @@
 #include "joypad.h"
 #include "fade.h"
 #include "score.h"
+#include "display_on.h"
 #include "ranking.h"
 
 
@@ -130,7 +131,7 @@ void CResult::Update(void)
 		CManager::GetMouse()->GetMouseTrigger(0) || 
 		CManager::GetJoypad()->GetJoystickTrigger(3, 0))
 	{
-		CManager::GetFade()->SetFade(CManager::MODE_TITLE);
+		CDisplayON::Create();
 	}
 }
 

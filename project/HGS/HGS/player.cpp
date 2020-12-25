@@ -17,6 +17,7 @@
 #include "joypad.h"
 #include "sound.h"
 #include "bullet.h"
+#include "grid.h"
 
 //=============================================================================
 // マクロ定義
@@ -314,11 +315,12 @@ void CPlayer::HitDamage(int nCount)
 	// 体力が無くなったら
 	if (m_nLife <= 0)
 	{
+		CGrid::BreakAll(GetPos());
 		// 終了処理
 		Uninit();
 
 		// フェード
-		CManager::GetFade()->SetFade(CManager::MODE_RESULT);
+		//CManager::GetFade()->SetFade(CManager::MODE_RESULT);
 		return;
 	}
 }

@@ -25,6 +25,7 @@ class CInputMouse;
 class CSound;
 class CCamera;
 class CPlayer;
+class CScore;
 
 //*****************************
 //クラス定義
@@ -55,6 +56,7 @@ public:
 
 	static CCamera *GetCamera(void) { return m_pCamera; }	// カメラの取得処理
 	static CPlayer *GetPlayer(void) { return m_pPlayer; }	// プレイヤーの情報
+	static CScore *GetScore(void) { return m_pScore; }
 	bool GetSpeedUp(void) { return m_bSpeedUp; }
 private:
 	//*****************************
@@ -62,6 +64,7 @@ private:
 	//*****************************
 	static CCamera *m_pCamera;	// カメラ
 	static CPlayer *m_pPlayer;	// プレイヤー
+	static CScore *m_pScore;	// スコア
 	int m_nEnemyFlame;			// 敵の出るフレーム
 	int m_nGameFlame;			// ゲームのカウンター
 	bool m_bSpeedUp;			// スピードアップ

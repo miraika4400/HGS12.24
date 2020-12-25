@@ -151,6 +151,7 @@
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="break_effect.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="collision.cpp" />
     <ClCompile Include="debug_log.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fade.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="bullet.h" />
     <ClInclude Include="break_effect.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="collision.h" />
     <ClInclude Include="debug_log.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="fade.h" />

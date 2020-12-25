@@ -11,10 +11,17 @@
 #include "score.h"
 #include "number.h"
 
+//**********************************
+// マクロ定義
+//**********************************
+#define COMBO_FLAME		(80)			// コンボのフレーム
+
 //==============================
 //静的メンバ変数宣言
 //==============================
 int CScore::m_nScore = 0;
+int CScore::m_nComboCount = 1;
+int CScore::m_nComboFlame = 0;
 
 //==================================
 // コンストラクタ
@@ -58,7 +65,7 @@ HRESULT CScore::Init(void)
 	for (int nCntDigit = 0; nCntDigit < MAX_SCORE_DIGIT; nCntDigit++)
 	{
 		m_apNumber[nCntDigit] = CNumber::Create(0,
-			D3DXVECTOR3(1000 + nCntDigit * 20 * 2, 50.0f, 0.0f),
+			D3DXVECTOR3(1025.0f + nCntDigit * 20 * 2, 50.0f, 0.0f),
 			D3DXVECTOR3(20, 20, 0),
 			D3DXCOLOR(0.8f, 0.3f, 0.8f, 1.0f));
 	}
@@ -83,6 +90,10 @@ void CScore::Uninit(void)
 		}
 	}
 
+	m_nScore = 0;
+	m_nComboCount = 1;
+	m_nComboFlame = 0;
+
 	// 開放処理
 	Release();
 }
@@ -98,6 +109,15 @@ void CScore::Update(void)
 
 		m_apNumber[nCntDigit]->SetNumber((m_nScore % (int)(powf(10.0f, (MAX_SCORE_DIGIT - nCntDigit)))) / (float)(powf(10.0, (MAX_SCORE_DIGIT - nCntDigit - 1))));
 	}
+
+	//// コンボのフレームカウント
+	//m_nComboFlame++;
+
+	//// コンボのカウント
+	//if (m_nComboFlame >= COMBO_FLAME)
+	//{
+	//	m_nComboCount = 1;
+	//}
 }
 
 //==================================
@@ -109,4 +129,20 @@ void CScore::Draw(void)
 	{
 		m_apNumber[nCntDigit]->Draw();
 	}
+}
+
+//==================================
+// スコアの加算
+//==================================
+void CScore::AddScore(int nPoint)
+{	
+	if (m_nScore < 99)
+	{
+		// スコア加算
+		m_nScore += nPoint;
+
+	}
+
+	 // コンボフレームリセット
+//	 m_nComboFlame = 0;
 }

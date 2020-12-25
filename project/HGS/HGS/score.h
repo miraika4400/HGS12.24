@@ -23,7 +23,7 @@ class CNumber;
 //*****************************
 //マクロ定義
 //*****************************
-#define MAX_SCORE_DIGIT 6  // スコアの最大桁数
+#define MAX_SCORE_DIGIT 2  // スコアの最大桁数
 
 //*****************************
 //クラス定義
@@ -46,7 +46,7 @@ public:
 	void Update(void); // 更新
 	void Draw(void);   // 描画
 
-	static void AddScore(int nPoint) { m_nScore += nPoint; } // スコア加算
+	static void AddScore(int nPoint); 
 	static int GetScore(void) { return m_nScore; }           // スコアの取得
 private:
 	//============
@@ -54,7 +54,8 @@ private:
 	//============
 	CNumber* m_apNumber[MAX_SCORE_DIGIT]; // ナンバーポリゴン
 	static int m_nScore;                  // スコア
-
+	static int m_nComboCount;						// コンボのカウント
+	static int m_nComboFlame;						// コンボのフレーム
 };
 
 #endif

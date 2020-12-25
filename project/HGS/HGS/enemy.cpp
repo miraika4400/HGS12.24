@@ -18,6 +18,9 @@
 #include "sound.h"
 #include "grid.h"
 #include "break_effect.h"
+#include "collision.h"
+#include "tutorial.h"
+
 //=============================================================================
 // マクロ定義
 //=============================================================================
@@ -116,14 +119,18 @@ HRESULT CEnemy::Init()
 	// 初期化処理
 	CScene2d::Init();
 
-	if (CManager::GetGame()->GetSpeedUp() == true)
-	{
-		m_nSpeed = ENEMY_SPEED + rand() % ENEMY_SPEED_UP - rand() % ENEMY_SPEED_DOWN;
+	CGame *pGame = CManager::GetGame();
 
-	}
-	else
+	if (pGame != NULL)
 	{
-		m_nSpeed = ENEMY_SPEED;
+		if (pGame->GetSpeedUp() == true)
+		{
+			m_nSpeed = ENEMY_SPEED + rand() % ENEMY_SPEED_UP - rand() % ENEMY_SPEED_DOWN;
+		}
+		else
+		{
+			m_nSpeed = ENEMY_SPEED;
+		}
 	}
 
 	return S_OK;
@@ -149,41 +156,66 @@ void CEnemy::Update(void)
 	// 座標更新
 	D3DXVECTOR3 pos = GetPos();
 
-	// プレイヤー情報を取得
-	CPlayer *pPlayer = CGame::GetPlayer();
-	D3DXVECTOR3 Ppos = pPlayer->GetPos();
+	// 現在のモード受け取り
+	CManager::MODE mode = CManager::GetMode();
 
-	//自機を取得する
-	float fPposx = Ppos.x, fPposy = Ppos.y;		// 自機の座標
-	float fEposx = pos.x, fEposy = pos.y;	// 敵の座標
-	float fAngle;								// 角度
+	// 変数宣言
+	CPlayer *pPlayer = NULL;
 
-	//角度を決める
-	fAngle = atan2f((fEposx - fPposx), (fEposy - fPposy));
-	// 透明な敵の移動
-	D3DXVECTOR3 FollowMove = D3DXVECTOR3(
-		(sinf(fAngle)*-ENEMY_SPEED),
-		cosf(fAngle)*-ENEMY_SPEED, 0.0f);
-
-	// 移動量の設定
-	pos += FollowMove;
-
-	// 座標を渡す
-	SetPos(pos);
-
-	// 回転
-	Rotation();
-
-	// プレイヤーとの当たり判定
-	Collision();
-
-	// ライフが0だったら
-	if (m_nLife <= 0)
+	switch (mode)
 	{
-		// エネミー削除
-		Uninit();
-		CGrid::Break(GetPos());
-		CBreakEffect::Create(GetPos());
+	case CManager::MODE_GAME:
+		// プレイヤー情報を取得
+		pPlayer = CGame::GetPlayer();
+		break;
+
+	case CManager::MODE_TUTORIAL:
+		// プレイヤー情報を取得
+		pPlayer = CTutorial::GetPlayer();
+		break;
+
+	}
+	if (pPlayer != NULL)
+	{
+		if (mode == CManager::MODE_GAME)
+		{
+			D3DXVECTOR3 Ppos = pPlayer->GetPos();
+
+			//自機を取得する
+			float fPposx = Ppos.x, fPposy = Ppos.y;		// 自機の座標
+			float fEposx = pos.x, fEposy = pos.y;	// 敵の座標
+			float fAngle;								// 角度
+
+														//角度を決める
+			fAngle = atan2f((fEposx - fPposx), (fEposy - fPposy));
+			// 透明な敵の移動
+			D3DXVECTOR3 FollowMove = D3DXVECTOR3(
+				(sinf(fAngle)*-ENEMY_SPEED),
+				cosf(fAngle)*-ENEMY_SPEED, 0.0f);
+
+			// 移動量の設定
+			pos += FollowMove;
+
+			// 座標を渡す
+			SetPos(pos);
+
+			// 回転
+			Rotation();
+
+			if (CollisionCircularAndCircular(pos, Ppos, ENEMY_SIZE_X, DECISION_PLAYER_SIZE_X) == true)
+			{
+				// 敵にダメージ
+				pPlayer->HitDamage(ENEMY_DAMAGE);
+			}
+		}
+	}
+		// ライフが0だったら
+		if (m_nLife <= 0)
+		{
+			// エネミー削除
+			Uninit();
+			CGrid::Break(GetPos());
+			CBreakEffect::Create(GetPos());
 	}
 }
 
@@ -254,19 +286,40 @@ void CEnemy::Rotation(void)
 	// 座標更新
 	D3DXVECTOR3 pos = GetPos();
 
-	// プレイヤー情報を取得
-	CPlayer *pPlayer = CGame::GetPlayer();
-	D3DXVECTOR3 Ppos = pPlayer->GetPos();
+	// 現在のモード受け取り
+	CManager::MODE mode = CManager::GetMode();
 
-	//自機を取得する
-	float fPposx = Ppos.x, fPposy = Ppos.y;		// 自機の座標
-	float fEposx = pos.x, fEposy = pos.y;	// 敵の座標
-	float fAngle;								// 角度
+	// 変数宣言
+	CPlayer *pPlayer = NULL;
 
-	//角度を決める
-	fAngle = atan2f((fEposx - fPposx), (fEposy - fPposy));
+	switch (mode)
+	{
+	case CManager::MODE_GAME:
+		// プレイヤー情報を取得
+		pPlayer = CGame::GetPlayer();
+		break;
 
-	// アングルの設定
-	SetAngle(D3DXToDegree(-fAngle));
-	SetPos(pos);
+	case CManager::MODE_TUTORIAL:
+		// プレイヤー情報を取得
+		pPlayer = CTutorial::GetPlayer();
+		break;
+
+	}
+	if (pPlayer != NULL)
+	{
+
+		D3DXVECTOR3 Ppos = pPlayer->GetPos();
+
+		//自機を取得する
+		float fPposx = Ppos.x, fPposy = Ppos.y;		// 自機の座標
+		float fEposx = pos.x, fEposy = pos.y;	// 敵の座標
+		float fAngle;								// 角度
+
+		//角度を決める
+		fAngle = atan2f((fEposx - fPposx), (fEposy - fPposy));
+
+		// アングルの設定
+		SetAngle(D3DXToDegree(-fAngle));
+		SetPos(pos);
+	}
 }

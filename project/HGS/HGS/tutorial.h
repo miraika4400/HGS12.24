@@ -19,6 +19,7 @@
 // 前方宣言
 //*****************************
 class CPolygon;
+class CPlayer;
 
 //*****************************
 // マクロ定義
@@ -40,11 +41,13 @@ public:
 	~CTutorial();
 	static CTutorial *Create(void); // クラス生成
 
-	HRESULT Init(void); // 初期化
-	void Uninit(void);  // 終了
-	void Update(void);  // 更新
-	void Draw(void);    // 描画
+	HRESULT Init(void);			// 初期化
+	void Uninit(void);			// 終了
+	void Update(void);			// 更新
+	void Draw(void);			// 描画
 
+	void SetGame(void);			// ゲームの設定
+	static CPlayer *GetPlayer(void);	// プレイヤーの情報
 private:
 	//============
 	// メンバ変数
@@ -52,7 +55,7 @@ private:
 	static LPDIRECT3DTEXTURE9 m_pTexture[TUTORIAL_NUM]; // テクスチャへのポインタ
 	CPolygon *m_pPolygon;                               // ポリゴン
 	int m_nNumTutorial;                                 // チュートリアル数
-
+	static CPlayer *m_pPlayer;							// プレイヤー
 };
 
 #endif
